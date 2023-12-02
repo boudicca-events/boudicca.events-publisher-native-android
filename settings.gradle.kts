@@ -3,6 +3,7 @@ pluginManagement {
     google()
     mavenCentral()
     gradlePluginPortal()
+    jcenter() // Warning: this repository is going to shut down soon
   }
 }
 dependencyResolutionManagement {

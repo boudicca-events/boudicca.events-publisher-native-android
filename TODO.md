@@ -1,0 +1,9 @@
+- Search functionality
+- Get list of events
+- Unlimited Scroll
+- Filter
+- Drawer Search
+- Event Composable
+- Logo 
+- Internationalization (English / German)
+- Test
