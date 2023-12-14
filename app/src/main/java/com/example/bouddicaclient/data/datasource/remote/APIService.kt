@@ -12,5 +12,5 @@ interface APIService {
   suspend fun getEvents(): List<EventItem>
 
   @POST("queryEntries")
-  suspend fun searchEvents(@Body request: SearchRequest): Response
+  suspend fun queryEntries(@Body request: SearchRequest): Response
 }

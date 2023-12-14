@@ -14,8 +14,8 @@ class EventRepository @Inject constructor(
     return apiService.getEvents()
   }
 
-  suspend fun searchEvents(query: String, offset: Int, size: Int): Response {
+  suspend fun queryEnteries(query: String, offset: Int, size: Int): Response {
     val searchRequest = SearchRequest(query, offset, size)
-    return apiService.searchEvents(searchRequest)
+    return apiService.queryEntries(searchRequest)
   }
 }
