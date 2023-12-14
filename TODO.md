@@ -7,3 +7,5 @@
 - Logo 
 - Internationalization (English / German)
 - Test
+- Accessibility
+- Wireframe design

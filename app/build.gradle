@@ -69,6 +69,7 @@ dependencies {
   // compose navigation
   implementation "androidx.navigation:navigation-compose:2.7.5"
   implementation "androidx.hilt:hilt-navigation-compose:1.1.0"
+
   // multidex
   implementation "androidx.multidex:multidex:2.0.1"
 
@@ -98,5 +99,4 @@ dependencies {
   implementation 'com.google.code.gson:gson:2.10.1'
   // splash screen
   implementation "androidx.core:core-splashscreen:1.0.1"
-
 }

@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 //import com.example.bouddicaclient.R
 //import com.example.bouddicaclient.data.model.Genres
@@ -41,14 +42,18 @@ fun MainScreen() {
   val mainViewModel = hiltViewModel<MainViewModel>()
   val navController = rememberNavController()
   val scaffoldState = rememberScaffoldState()
-  val scope = rememberCoroutineScope()
-  val isAppBarVisible = remember { mutableStateOf(true) }
-  val searchProgressBar = remember { mutableStateOf(false) }
-  val genreName = remember { mutableStateOf("") }
+//  val scope = rememberCoroutineScope()
+//  val isAppBarVisible = remember { mutableStateOf(true) }
+//  val searchProgressBar = remember { mutableStateOf(false) }
+//  val genreName = remember { mutableStateOf("") }
 //  val genreList = remember { mutableStateOf(arrayListOf<Genre>()) }
-  // internet connection
+//  internet connection
 //  val connection by connectivityState()
 //  val isConnected = connection === ConnectionState.Available
+
+  val items = listOf(
+    Screen.HomeNav
+  )
 
   // genre api call for first time
   LaunchedEffect(key1 = 0) {
@@ -63,7 +68,45 @@ fun MainScreen() {
 //      genreList.value.add(0, Genre(null, AppConstant.DEFAULT_GENRE_ITEM))
 //  }
 
-  Scaffold(scaffoldState = scaffoldState, content = {
-    Text("my app")
-  })
+  Scaffold(scaffoldState = scaffoldState, contentColor = Color.White) {
+      Box(
+        modifier = Modifier.fillMaxWidth()
+      ) {
+        Text("my app")
+      }
+  }
+}
+
+@Composable
+fun BottomNavigationUI(navController: NavController) {
+  BottomNavigation {
+    val items = listOf(
+      Screen.HomeNav
+    )
+    items.forEach { item ->
+      BottomNavigationItem(
+        label = { Text(text = stringResource(id = item.title)) },
+        selected = currentRoute(navController) == item.route,
+        icon = item.navIcon,
+        selectedContentColor = Color.White,
+        unselectedContentColor = Color.White.copy(0.4f),
+        onClick = {
+          navController.navigate(item.route) {
+            // Pop up to the start destination of the graph to
+            // avoid building up a large stack of destinations
+            // on the back stack as users select items
+            navController.graph.startDestinationRoute?.let { route ->
+              popUpTo(route) {
+                saveState = true
+              }
+            }
+            // Avoid multiple copies of the same destination when
+            // reselecting the same item
+            launchSingleTop = true
+            // Restore state when reselecting a previously selected item
+            restoreState = true
+          }
+        })
+    }
+  }
 }

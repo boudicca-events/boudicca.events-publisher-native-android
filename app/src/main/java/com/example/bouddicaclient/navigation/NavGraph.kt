@@ -1,8 +1,5 @@
 package com.example.bouddicaclient.navigation
 
-//import com.piashcse.hilt_mvvm_compose_movie.data.model.Genres
-//import com.piashcse.hilt_mvvm_compose_movie.ui.screens.genre.GenreScreen
-//import com.piashcse.hilt_mvvm_compose_movie.ui.screens.artistdetail.ArtistDetail
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -12,12 +9,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.bouddicaclient.navigation.Screen
-
-//import com.piashcse.hilt_mvvm_compose_movie.ui.screens.moviedetail.MovieDetail
-//import com.piashcse.hilt_mvvm_compose_movie.ui.screens.bottomnavigation.popular.Popular
-//import com.piashcse.hilt_mvvm_compose_movie.ui.screens.bottomnavigation.toprated.TopRated
-//import com.piashcse.hilt_mvvm_compose_movie.ui.screens.bottomnavigation.upcoming.Upcoming
-//import com.piashcse.hilt_mvvm_compose_movie.utils.network.DataState
 
 @Composable
 fun Navigation(

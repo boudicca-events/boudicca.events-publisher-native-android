@@ -13,6 +13,6 @@ object NetworkModule {
   @Singleton
   @Provides
   fun provideBaseURL(): String {
-    return ApiURL.SEARCH_URL
+    return ApiURL.BASE_URL
   }
 }
