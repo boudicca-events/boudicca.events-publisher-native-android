@@ -7,6 +7,7 @@ on:
         description: 'Application version'
         required: true
         default: '0.1'
+
 jobs:
   build:
     name: Build Signed APK
@@ -26,7 +27,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # Here we need to decode keystore.jks from base64 string and place it
+      # Decode keystore.jks from base64 string and place it
       # in the folder specified in the release signing configuration
       - name: Decode Keystore
         id: decode_keystore
@@ -54,14 +55,14 @@ jobs:
       # Show information about the APK's signing certificates
       - name: Verify Signature
         run: |
-          $ANDROID_SDK_ROOT/build-tools/33.0.1/apksigner verify --print-certs app/build/outputs/apk/release/${APP_NAME}_${{ github.event.inputs.version }}.apk
+          $ANDROID_SDK_ROOT/build-tools/33.0.1/apksigner verify --print-certs "app/build/outputs/apk/release/${APP_NAME}_${{ github.event.inputs.version }}.apk"
 
       # Save the APK after the Build job is complete to publish it as a Github release in the next job
       - name: Upload APK
         uses: actions/upload-artifact@v3.1.2
         with:
           name: "${APP_NAME}"
-          path: app/build/outputs/apk/release/${APP_NAME}_${{ github.event.inputs.version }}.apk
+          path: "app/build/outputs/apk/release/${APP_NAME}_${{ github.event.inputs.version }}.apk"
 
   release:
     name: Release APK
@@ -72,7 +73,7 @@ jobs:
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
-          name: ${APP_NAME}
+          name: "${APP_NAME}"
 
       - name: Create Release
         id: create_release
@@ -80,8 +81,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ github.event.inputs.version }}
-          name: Release v${{ github.event.inputs.version }}
+          tag_name: "v${{ github.event.inputs.version }}"
+          name: "Release v${{ github.event.inputs.version }}"
           draft: false
           prerelease: false
-          files: ${APP_NAME}/${APP_NAME}_${{ github.event.inputs.version }}.apk
+          files: "${APP_NAME}/${APP_NAME}_${{ github.event.inputs.version }}.apk"
