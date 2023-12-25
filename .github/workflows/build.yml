@@ -29,8 +29,12 @@ jobs:
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: 'android_keystore.jks'
-          fileDir: '/home/runner/work/<<project name>>/<<project name>>/app/keystore/'
+          fileDir: 'app/keystore/'  # Updated relative path
           encodedString: ${{ secrets.KEYSTORE }}
+
+      # Debug helper step
+      - name: Debug Keystore Placement
+        run: ls -R app/keystore/
 
       # Build and sign APK ("-x test" argument is used to skip tests)
       - name: Build APK
