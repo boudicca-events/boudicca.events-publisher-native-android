@@ -8,13 +8,13 @@ on:
         required: true
         default: '0.1'
 
+env:
+  APP_NAME: 'Bouddica'
+
 jobs:
   build:
     name: Build Signed APK
     runs-on: ubuntu-latest
-
-    env:
-      APP_NAME: 'Bouddica'
 
     steps:
       - uses: actions/checkout@v3
@@ -55,7 +55,7 @@ jobs:
       # Show information about the APK's signing certificates
       - name: Verify Signature
         run: |
-          APK_PATH="app/build/outputs/apk/release/${APP_NAME}_${{ github.event.inputs.version }}.apk"
+          APK_PATH="app/build/outputs/apk/release/${{ env.APP_NAME }}_${{ github.event.inputs.version }}.apk"
           echo "Verifying APK at path: $APK_PATH"
           $ANDROID_SDK_ROOT/build-tools/33.0.1/apksigner verify --print-certs "$APK_PATH"
 
@@ -63,8 +63,8 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: "${APP_NAME}"
-          path: "app/build/outputs/apk/release/${APP_NAME}_${{ github.event.inputs.version }}.apk"
+          name: "${{ env.APP_NAME }}"
+          path: "app/build/outputs/apk/release/${{ env.APP_NAME }}_${{ github.event.inputs.version }}.apk"
 
   release:
     name: Release APK
@@ -75,7 +75,7 @@ jobs:
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
-          name: "${APP_NAME}"
+          name: "${{ env.APP_NAME }}"
 
       - name: Create Release
         id: create_release
@@ -87,4 +87,4 @@ jobs:
           name: "Release v${{ github.event.inputs.version }}"
           draft: false
           prerelease: false
-          files: "${APP_NAME}/${APP_NAME}_${{ github.event.inputs.version }}.apk"
+          files: "${{ env.APP_NAME }}/${{ env.APP_NAME }}_${{ github.event.inputs.version }}.apk"
