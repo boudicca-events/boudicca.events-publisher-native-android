@@ -44,6 +44,12 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
 
+      - name: Debug Release Directory
+        run: ls -R app/build/outputs/apk/release/
+
+      - name: Debug Release Directory
+        run: ls -R app/release/
+
       # Show information about the APK's signing certificates
       - name: Verify Signature
         run: |
