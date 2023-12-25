@@ -64,6 +64,18 @@ android {
   namespace 'com.example.bouddicaclient'
 }
 
+task printSigningInfo {
+  doLast {
+    println "Signing configuration:"
+    println "Store file: ${android.signingConfigs.release.storeFile}"
+    println "Key alias: ${android.signingConfigs.release.keyAlias}"
+    println "Store password: ${android.signingConfigs.release.storePassword}"
+    println "Key password: ${android.signingConfigs.release.keyPassword}"
+  }
+}
+
+preBuild.dependsOn printSigningInfo
+
 dependencies {
   implementation 'androidx.core:core-ktx:1.12.0'
   implementation 'androidx.appcompat:appcompat:1.6.1'
