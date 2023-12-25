@@ -14,6 +14,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "Bouddica Client"
+rootProject.name = "Bouddica"
 include(":app")
  
