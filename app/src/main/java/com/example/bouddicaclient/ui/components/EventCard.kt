@@ -10,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,6 +35,7 @@ fun EventCard(
       disabledContentColor = Color.Black
     ),
     modifier = Modifier.fillMaxWidth().padding(16.dp),
+    shape = RectangleShape
   ) {
     Column(
       modifier = Modifier
