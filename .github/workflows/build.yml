@@ -7,10 +7,18 @@ on:
         description: 'Application version'
         required: true
         default: '0.1'
+
+env:
+  APP_NAME: 'Bouddica'
+
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build Signed APK
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -22,15 +30,19 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # Here we need to decode keystore.jks from base64 string and place it
+      # Decode keystore.jks from base64 string and place it
       # in the folder specified in the release signing configuration
       - name: Decode Keystore
         id: decode_keystore
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: 'android_keystore.jks'
-          fileDir: '/home/runner/work/<<project name>>/<<project name>>/app/keystore/'
+          fileDir: 'app/keystore/'  # Updated relative path
           encodedString: ${{ secrets.KEYSTORE }}
+
+      # Debug helper step
+      - name: Debug Keystore Placement
+        run: ls -R app/keystore/
 
       # Build and sign APK ("-x test" argument is used to skip tests)
       - name: Build APK
@@ -40,33 +52,42 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
 
+      - name: Debug Release Directory
+        run: ls -R app/build/outputs/apk/release/
+
       # Show information about the APK's signing certificates
       - name: Verify Signature
-        run: $ANDROID_SDK_ROOT/build-tools/33.0.1/apksigner verify --print-certs app/build/outputs/apk/release/<<application name>>_${{ github.event.inputs.version }}.apk
+        run: |
+          APK_PATH="app/build/outputs/apk/release/${{ env.APP_NAME }}_${{ github.event.inputs.version }}.apk"
+          echo "Verifying APK at path: $APK_PATH"
+          $ANDROID_SDK_ROOT/build-tools/33.0.1/apksigner verify --print-certs "$APK_PATH"
 
       # Save the APK after the Build job is complete to publish it as a Github release in the next job
       - name: Upload APK
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: <<application name>>
-          path: app/build/outputs/apk/release/<<application name>>_${{ github.event.inputs.version }}.apk
+          name: "${{ env.APP_NAME }}"
+          path: "app/build/outputs/apk/release/${{ env.APP_NAME }}_${{ github.event.inputs.version }}.apk"
+
   release:
     name: Release APK
     needs: build
     runs-on: ubuntu-latest
+
     steps:
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
-          name: <<application name>>
+          name: "${{ env.APP_NAME }}"
+
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ github.event.inputs.version }}
-          name: Release v${{ github.event.inputs.version }}
+          tag_name: "v${{ github.event.inputs.version }}"
+          name: "Release v${{ github.event.inputs.version }}"
           draft: false
           prerelease: false
-          files: <<application name>>/<<application name>>_${{ github.event.inputs.version }}.apk
+          files: "${{ env.APP_NAME }}/${{ env.APP_NAME }}_${{ github.event.inputs.version }}.apk"

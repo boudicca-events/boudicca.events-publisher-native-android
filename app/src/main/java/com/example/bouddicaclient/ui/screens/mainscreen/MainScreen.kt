@@ -1,6 +1,7 @@
 package com.example.bouddicaclient.ui.screens.mainscreen
 
 import android.annotation.SuppressLint
+
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -10,10 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.Composable
+
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -21,10 +24,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.bouddicaclient.R
-
 import com.example.bouddicaclient.navigation.Screen
 import com.example.bouddicaclient.ui.screens.bookmarkscreen.BookmarkScreen
 import com.example.bouddicaclient.ui.screens.homescreen.HomeScreen
+
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 import androidx.compose.foundation.Image

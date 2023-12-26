@@ -3,6 +3,7 @@ package com.example.bouddicaclient.ui.screens.activity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+
 import androidx.compose.foundation.isSystemInDarkTheme
 
 import com.example.bouddicaclient.ui.screens.mainscreen.MainScreen
