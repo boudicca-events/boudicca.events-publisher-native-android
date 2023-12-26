@@ -28,7 +28,7 @@ fun EventCard(
   Card(
     onClick = { println("todo") },
     colors = CardDefaults.cardColors(
-      containerColor = Color.White,
+      containerColor = MaterialTheme.colorScheme.background,
       contentColor = Color.Black,
       disabledContainerColor = Color.Gray,
       disabledContentColor = Color.Black
