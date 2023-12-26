@@ -43,7 +43,7 @@ fun HomeScreen(
       modifier = Modifier
         .fillMaxWidth()
         .background(
-          color = Color.Gray
+          color = Color.White
         ),
     ) {
       EventList(events = events ?: emptyList())

@@ -5,15 +5,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
-  primary = Purple200,
-  secondary = Teal200
+  primary = Color.Black,
+  secondary = Teal200,
+  primaryContainer = Color.White,
+  background = Blue
 )
 
 private val LightColorScheme = lightColorScheme(
-  primary = Purple500,
-  secondary = Teal200
+  primary = Color.Black,
+  secondary = Teal200,
+  primaryContainer = Color.White,
+  background = Blue
 
   /* Other default colors to override
   background = Color.White,
@@ -39,6 +44,7 @@ fun HiltMVVMComposeMovieTheme(
   MaterialTheme(
     colorScheme = colors,
     shapes = Shapes,
-    content = content
+    content = content,
+    typography = Typography
   )
 }
