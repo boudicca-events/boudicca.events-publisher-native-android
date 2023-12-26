@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Bouddica Client</string>
+    <string name="app_name">Bouddica</string>
+    <string name="screen_home">Events</string>
+    <string name="screen_bookmark">Bookmark</string>
 </resources>
