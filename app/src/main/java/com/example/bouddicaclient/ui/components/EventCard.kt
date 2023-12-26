@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.bouddicaclient.R
+import com.example.bouddicaclient.data.model.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +59,7 @@ fun EventCard(
       ) {
         EventIcon(Icons.Default.Schedule, "Date & Time")
         Spacer(modifier = Modifier.width(8.dp))
-        Text(text = eventDateTime)
+        Text(text = Date(eventDateTime).formattedDate)
       }
       Spacer(modifier = Modifier.height(8.dp))
       Row(
