@@ -11,17 +11,4 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: EventRepository) : ViewModel() {
-  private val _events = MutableLiveData<List<EventItem>>()
-  val events: LiveData<List<EventItem>> get() = _events
-  fun loadEvents() {
-    viewModelScope.launch {
-      try {
-        val result = repository.queryEnteries("name contains a", 0, 10)
-        _events.value = result.result
-      } catch (e: Exception) {
-        e.printStackTrace()
-      }
-    }
-  }
-}
+class MainViewModel @Inject constructor() : ViewModel()
